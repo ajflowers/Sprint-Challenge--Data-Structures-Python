@@ -47,18 +47,56 @@ class NameSearchTree:
             return False
 
 
-name_tree = NameSearchTree("names to search")
+# name_tree = NameSearchTree("names to search")
 
-for name_1 in names_1:
-    name_tree.insert(name_1)
+# for name_1 in names_1:
+#     name_tree.insert(name_1)
 
-for name_2 in names_2:
-    if name_tree.contains(name_2):
-        duplicates.append(name_2)
-
-        
+# for name_2 in names_2:
+#     if name_tree.contains(name_2):
+#         duplicates.append(name_2)
 
 
+
+##### STRETCH #####
+# 
+# NAMES IN ARRAYS ONLY
+
+class NodeSearchTree:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+    def insert(self, value):
+        if names_1[value] < names_1[self.value]:
+            if self.left:
+                self.left.insert(value)
+            else:
+                self.left = NodeSearchTree(value)                
+        else:
+            if self.right:
+                self.right.insert(value)    
+            else:
+                self.right = NodeSearchTree(value)
+
+    def contains_from_2(self, value):
+        if names_2[value] == names_1[self.value]:
+            return True
+        elif names_2[value] < names_1[self.value] and self.left:
+            return self.left.contains_from_2(value)
+        elif names_2[value] > names_1[self.value] and self.right:
+            return self.right.contains_from_2(value)
+        else:
+            return False
+
+node_tree = NodeSearchTree(0)
+for i in range(1, len(names_1)):
+    node_tree.insert(i)
+
+for j in range(len(names_2)):
+    if node_tree.contains_from_2(j):
+        duplicates.append(names_2[j])
 
 
 end_time = time.time()

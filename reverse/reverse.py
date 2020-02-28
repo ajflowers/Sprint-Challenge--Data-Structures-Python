@@ -44,4 +44,12 @@ class LinkedList:
 
   def reverse_list(self):
     # TO BE COMPLETED
-    pass
+    temp_list = LinkedList()
+    node = self.head
+
+    while node:
+      temp_list.add_to_head(node.value)
+      node = node.next_node
+
+    self.head = temp_list.head
+  
